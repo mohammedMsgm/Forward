@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.SignUpActivity"
+    android:background="@color/colorPrimaryDark"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <EditText
+            android:id="@+id/name_up"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="16dp"
+            android:height="40dp"
+            android:autoText="true"
+            android:background="@drawable/ic_email_blank"
+            android:clickable="true"
+            android:ems="10"
+            android:hint="@string/name"
+            android:padding="10dp"
+            app:layout_constraintEnd_toEndOf="@+id/birth_date_up"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="@+id/birth_date_up"
+            app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+        <EditText
+            android:id="@+id/address_up"
+            android:layout_width="306dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="24dp"
+            android:height="40dp"
+            android:background="@drawable/ic_email_blank"
+            android:ems="10"
+            android:hint="@string/address"
+            android:padding="10dp"
+            app:layout_constraintEnd_toEndOf="@+id/name_up"
+            app:layout_constraintStart_toStartOf="@+id/name_up"
+            app:layout_constraintTop_toBottomOf="@+id/name_up" />
+
+        <EditText
+            android:id="@+id/birth_date_up"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:height="40dp"
+            android:background="@drawable/ic_email_blank"
+            android:ems="10"
+            android:hint="@string/birth_date"
+            android:inputType="date"
+            android:padding="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/address_up" />
+
+        <EditText
+            android:id="@+id/phone_up"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:height="40dp"
+            android:background="@drawable/ic_email_blank"
+            android:ems="10"
+            android:hint="@string/phone"
+            android:inputType="phone"
+            android:padding="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/email_up" />
+
+        <EditText
+            android:id="@+id/email_up"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:height="40dp"
+            android:background="@drawable/ic_email_blank"
+            android:ems="10"
+
+            android:hint="@string/email"
+            android:inputType="textEmailAddress"
+            android:padding="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/birth_date_up" />
+
+        <Button
+            android:id="@+id/next_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/ic_button_background"
+            android:backgroundTint="@color/colorAccent"
+            android:fontFamily="@font/aldrich"
+            android:shadowColor="@color/colorPrimary"
+            android:shadowDy="4"
+            android:text="@string/sign_up"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/password_up"
+            app:layout_constraintVertical_bias="0.561" />
+
+        <EditText
+            android:id="@+id/password_up"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:height="40dp"
+            android:background="@drawable/ic_email_blank"
+            android:ems="10"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:paddingLeft="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/phone_up" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="220dp"
+            android:layout_height="194dp"
+            android:layout_marginTop="8dp"
+            android:clickable="true"
+            android:foregroundTint="@color/colorAccent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_user" />
+
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="54dp"
+            android:layout_height="47dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="4dp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView"
+            app:layout_constraintEnd_toEndOf="@+id/imageView"
+            app:srcCompat="@drawable/upload_icon" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+</ScrollView>

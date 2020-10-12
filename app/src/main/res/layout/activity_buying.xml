@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.BuyingActivity"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimaryDark">
+
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/viewPager"
+            android:layout_width="0dp"
+            android:layout_height="350dp"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </androidx.viewpager.widget.ViewPager>
+
+        <TextView
+            android:id="@+id/beyPrice"
+            style="@style/boldText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:shadowColor="@color/colorAccent"
+            android:shadowDx="2"
+            android:shadowDy="2"
+            android:shadowRadius="5"
+            android:text="2000DA"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="@+id/beyName"
+            app:layout_constraintStart_toStartOf="@+id/beyName"
+            app:layout_constraintTop_toBottomOf="@+id/beyName" />
+
+        <TextView
+            android:id="@+id/beyName"
+            style="@style/boldText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="36dp"
+            android:layout_marginEnd="12dp"
+            android:fontFamily="@font/allerta_stencil"
+            android:gravity="start"
+            android:text="Whey For who does not have why"
+            android:textColor="@color/colorPrimary"
+            android:textSize="22sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewPager" />
+
+        <TextView
+            android:id="@+id/phoneNumber"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/ic_rectangle9"
+            android:backgroundTint="#fff"
+            android:padding="12dp"
+            android:text="@string/example_text"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@+id/beyPrice"
+            app:layout_constraintStart_toStartOf="@+id/beyPrice"
+            app:layout_constraintTop_toBottomOf="@+id/BeyratingBar" />
+
+        <RatingBar
+            android:id="@+id/BeyratingBar"
+            style="@style/Widget.AppCompat.RatingBar.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:rating="4.3"
+            app:layout_constraintEnd_toEndOf="@+id/beyPrice"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/beyPrice"
+            app:layout_constraintTop_toBottomOf="@+id/beyPrice" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/BeyCallButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="124dp"
+            android:layout_marginEnd="12dp"
+            android:clickable="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spinner2"
+            app:srcCompat="@android:drawable/stat_sys_phone_call" />
+
+        <Button
+            android:id="@+id/addToCart"
+            style="@style/boldText"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginRight="28dp"
+            android:background="@drawable/ic_button_background"
+            android:backgroundTint="@color/colorAccent"
+            android:fontFamily="@font/dosis_bold"
+            android:shadowColor="@color/colorAccent2"
+            android:shadowDy="3"
+            android:text="Add to Cart"
+            android:textAllCaps="false"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toBottomOf="@+id/BeyCallButton"
+            app:layout_constraintEnd_toStartOf="@+id/BeyCallButton"
+            app:layout_constraintStart_toStartOf="@+id/phoneNumber"
+            app:layout_constraintTop_toTopOf="@+id/BeyCallButton" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewBey"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/ic_group33"
+            android:paddingVertical="24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView10" />
+
+        <com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
+            android:id="@+id/worm_dots_indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="32dp"
+            app:dotsColor="@color/colorPrimary"
+            app:dotsCornerRadius="8dp"
+
+            app:dotsSize="16dp"
+            app:dotsSpacing="4dp"
+            app:dotsStrokeColor="@color/colorPrimary"
+            app:dotsStrokeWidth="2dp"
+            app:layout_constraintBottom_toTopOf="@+id/beyName"
+            app:layout_constraintEnd_toEndOf="@+id/viewPager"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewPager" />
+
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/dosis_bold"
+            android:text="@string/Seggested_items_for_you"
+            android:textColor="@color/colorPrimary"
+            android:textSize="25sp"
+            app:layout_constraintStart_toStartOf="@+id/addToCart"
+            app:layout_constraintTop_toBottomOf="@+id/addToCart" />
+
+        <Spinner
+            android:id="@+id/spinner2"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/ic_profile_caption"
+            app:layout_constraintEnd_toEndOf="@+id/phoneNumber"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/textView27"
+            app:layout_constraintTop_toBottomOf="@+id/textView27" />
+
+        <Button
+            android:id="@+id/buttonPlus"
+            android:layout_width="100dp"
+            android:layout_height="0dp"
+            android:background="@color/colorPrimary"
+            android:fontFamily="@font/aldrich"
+            android:text="+"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toBottomOf="@+id/amountText"
+            app:layout_constraintEnd_toStartOf="@+id/amountText"
+            app:layout_constraintStart_toStartOf="@+id/spinner2"
+            app:layout_constraintTop_toTopOf="@+id/amountText" />
+
+        <Button
+            android:id="@+id/buttonMinus"
+            android:layout_width="100dp"
+            android:layout_height="0dp"
+            android:background="@color/colorPrimary"
+            android:fontFamily="@font/aldrich"
+            android:text="-"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toBottomOf="@+id/amountText"
+            app:layout_constraintEnd_toEndOf="@+id/spinner2"
+            app:layout_constraintStart_toEndOf="@+id/amountText"
+            app:layout_constraintTop_toTopOf="@+id/amountText" />
+
+        <TextView
+            android:id="@+id/amountText"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/colorPrimary"
+            android:fontFamily="@font/dosis_bold"
+            android:gravity="center"
+            android:minWidth="60dp"
+            android:minHeight="60dp"
+            android:text="1"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="30sp"
+            app:layout_constraintEnd_toEndOf="@+id/spinner2"
+            app:layout_constraintStart_toStartOf="@+id/spinner2"
+            app:layout_constraintTop_toBottomOf="@+id/spinner2" />
+
+        <TextView
+            android:id="@+id/textView27"
+            style="@style/style1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/size"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@+id/phoneNumber"
+            app:layout_constraintTop_toBottomOf="@+id/phoneNumber" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</ScrollView>

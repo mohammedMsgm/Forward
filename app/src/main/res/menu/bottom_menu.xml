@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:title="qr"
+        android:id="@+id/qr_icon"
+        android:icon="@drawable/ic_qr_icon"
+        android:enabled="true"/>
+    <item
+        android:title="chek"
+        android:id="@+id/check_icon"
+        android:icon="@drawable/ic_chek_icon"
+        android:enabled="true"/>
+    <item
+        android:title="home"
+        android:id="@+id/home_icon"
+        android:icon="@drawable/ic_home_icon"
+        android:enabled="true"/>
+
+    <item
+        android:title="peofile"
+        android:id="@+id/profile_icon"
+        android:icon="@drawable/ic_top_icon"
+        android:enabled="true"/>
+
+
+    <item
+        android:title="store"
+        android:id="@+id/store_icon"
+        android:icon="@drawable/ic_store_icon"
+        android:enabled="true"/>
+
+
+</menu>

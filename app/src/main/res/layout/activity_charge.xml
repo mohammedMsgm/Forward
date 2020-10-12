@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    tools:context=".Activity.ChargeActivity"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:src="@drawable/ic_lion"
+        android:tint="@color/colorPrimaryDark" />
+
+    <TextView
+        android:id="@+id/bodyBuildingchage"
+        style="@style/style1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_email_blank"
+        android:text="@string/body_building"
+        tools:layout_editor_absoluteX="162dp"
+        tools:layout_editor_absoluteY="258dp" />
+
+    <TextView
+        android:id="@+id/cardioCharge"
+        style="@style/style1"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_email_blank"
+        android:text="@string/cardio"
+        tools:layout_editor_absoluteX="162dp"
+        tools:layout_editor_absoluteY="258dp" />
+
+    <TextView
+        android:id="@+id/calisthenicsCharge"
+        style="@style/style1"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_email_blank"
+        android:text="@string/calisthenics"
+        tools:layout_editor_absoluteX="162dp"
+        tools:layout_editor_absoluteY="258dp" />
+
+    <TextView
+        android:id="@+id/losingWeightCharge"
+        style="@style/style1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_email_blank"
+        android:text="@string/weight_losing"
+        tools:layout_editor_absoluteX="162dp"
+        tools:layout_editor_absoluteY="258dp" />
+
+
+</LinearLayout>

@@ -1,0 +1,65 @@
+<resources>
+    <string name="app_name" translatable="false">Gym App</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="sign_up">Sign up</string>
+    <string name="sign_in">Sogn in</string>
+    <string name="name">name</string>
+    <string name="age">Age</string>
+    <string name="birth_date">Birth date</string>
+    <string name="height">Height</string>
+    <string name="weight">Weight</string>
+    <string name="email">Email</string>
+    <string name="phone">Phone number</string>
+    <string name="password">Password</string>
+    <string name="address">Address</string>
+    <string name="next">Next</string>
+    <string name="sign_in_to_join_us_and_achieve_your_dreams">Sign in to Join us and achieve your dreams</string>
+    <string name="next_session">next session</string>
+    <string name="size">"Size: "</string>
+    <string name="add_to_cart">Add to Cart</string>
+    <string name="call">Call</string>
+    <string name="desciption">Description</string>
+    <string name="amount">Amount:</string>
+    <string name="Seggested_items_for_you">Seggested items to you:</string>
+    <string name="example_text">diper imitating astute attempt onerous baffle pertain interpret parsing LADE guap   bundle vow fetuses calamity soliloquy negligently skeleton by far artillery curvature oddly succumb muggle cactus edible puberty trophy arbitrarily persisted  forecast ambiguous</string>
+    <string name="body_building">Body Building</string>
+    <string name="weight_losing">Weight losing</string>
+    <string name="cardio">Cardio</string>
+    <string name="cross_fit">CrossFit</string>
+    <string name="calisthenics">Calisthenics</string>
+    <string name="Your_Subscription">Your Subscription:</string>
+    <string name="you_steel_have">You steel have:</string>
+    <string name="there_are_no_sessions">There are no session.</string>
+    <string name="you_attended">You attended:</string>
+    <string name="nothing">Nothing</string>
+    <string name="add_sessions">Add sessions</string>
+    <string name="buy">Buy</string>
+    <string name="time">Time</string>
+    <string name="Attendance">Attendance</string>
+    <string name="Subscription">Subscription</string>
+    <string name="programs_for_you">Programs for You:</string>
+    <string name="let_us_know_your_progress">Let\'s know your progress</string>
+    <string name="submit">submit</string>
+    <string name="sellect_Montly_Plan">sellect Montly Plan</string>
+    <string name="montly">Montly</string>
+    <string name="yearly">Yearly</string>
+    <string name="Get_started_today">Get started today</string>
+    <string name="Get_3_monthes_for_free">Get 3 monthes for free</string>
+    <string name="sellect_Yearly_Plan">sellect Yearly Plan</string>
+    <string name="profile_info">"Profile Info: "</string>
+    <string name="about_app">About app:</string>
+    <string name="rate_the_app">Rate the App                                      >></string>
+    <string name="termes_and_condition">termes and Conditions                        >></string>
+    <string name="version">Version: 1.0.0</string>
+    <string name="charge_account">Charge account</string>
+    <string name="Your_purchases">Your purchases</string>
+    <string name="notes">notes</string>
+    <string name="done">done</string>
+    <string name="left">متبقية</string>
+    <string name="select_days_you_want">slelect the days that you want to train on</string>
+    <string name="galery">some of my work:</string>
+    <string name="call_me">call me</string>
+    <string name="store">Store</string>
+    <string name="you_did_not_sign_in_yet">You did not sign up yet?! sign In, and if you are not a member join us on the sign up button</string>
+</resources>
