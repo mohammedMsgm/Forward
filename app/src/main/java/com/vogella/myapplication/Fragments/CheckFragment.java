@@ -43,6 +43,8 @@ public class CheckFragment extends Fragment {
     FirebaseFirestore fireStore;
     ArrayList<Date> monthEvents;
     ObjectMapper mapper;
+    View emptyLayout;
+
 
     public CheckFragment() {
     }
@@ -60,9 +62,6 @@ public class CheckFragment extends Fragment {
             view = inflater.inflate(R.layout.pleas_sign_in_or_up, container, false);
         } else {
             view = inflater.inflate(R.layout.fragment_check, container, false);
-            calendarView = view.findViewById(R.id.calendar_view_check);
-            calendarView.setSwipeEnabled(true);
-
         }
         return view;
     }
@@ -74,13 +73,17 @@ public class CheckFragment extends Fragment {
             fireStore.collection("users").document(currentUser.getUid()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
                 @Override
                 public void onEvent(@javax.annotation.Nullable DocumentSnapshot documentSnapshot, @javax.annotation.Nullable FirebaseFirestoreException e) {
-                    if (e != null) {
+                    if (e != null && !documentSnapshot.exists()) {
                         Log.e("mohammed msgm", e.getMessage());
                     }
-                    if (documentSnapshot != null && documentSnapshot.exists()) {
+                    if (documentSnapshot.exists()) {
                         monthEvents = (ArrayList) documentSnapshot.get("myEvents");
                         if (monthEvents != null){
-                            if (monthEvents.get(0) instanceof Map){
+                            emptyLayout.setVisibility(View.GONE);
+                            if (!monthEvents.isEmpty()){
+                                emptyLayout.setVisibility(View.GONE);
+                                calendarView = view.findViewById(R.id.calendar_view_check);
+                                calendarView.setSwipeEnabled(true);
                                 ArrayList<MyEventDay> myEventDays = new ArrayList<>();
                                 ArrayList<Calendar> calendars = new ArrayList<>();
                                 ArrayList<Map> mapsEvents = (ArrayList<Map>) documentSnapshot.get("myEvents");
@@ -118,12 +121,10 @@ public class CheckFragment extends Fragment {
                                 });
                             }else{
                                 calendarView.setSwipeEnabled(true);
-                                try {
-                                    calendarView.setDate(new Date());
-                                } catch (OutOfDateRangeException ex) {
-                                    ex.printStackTrace();
-                                }
+                                emptyLayout.setVisibility(View.VISIBLE);
                             }
+                        }else {
+                            emptyLayout.setVisibility(View.VISIBLE);
                         }
                     }
                 }

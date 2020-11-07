@@ -1,11 +1,17 @@
 package com.vogella.myapplication.Fragments;
 
+import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +19,8 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -21,11 +29,14 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.vogella.myapplication.Activity.ChargeActivity;
+import com.vogella.myapplication.MainActivity;
 import com.vogella.myapplication.PayChargeActivity;
 import com.vogella.myapplication.Pojo.User;
 import com.vogella.myapplication.R;
 import com.vogella.myapplication.Activity.SignUpActivity;
 import com.vogella.myapplication.databinding.FragmentProfileBinding;
+
+import java.util.Locale;
 
 import javax.annotation.Nullable;
 
@@ -66,7 +77,7 @@ public class ProfileFragment extends Fragment {
             binding.addSessions.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    startActivity(new Intent(getActivity(), ChargeActivity.class));
+                    startActivity(new Intent(getContext(), ChargeActivity.class));
                 }
             });
             binding.purchases.setOnClickListener(new View.OnClickListener() {
@@ -78,7 +89,7 @@ public class ProfileFragment extends Fragment {
             binding.chargeAccount.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(getActivity(), "لم يتم إضافة هذه الخاصية بعد", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "لم يتم إضاف ة هذه الخاصية بعد", Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -87,23 +98,20 @@ public class ProfileFragment extends Fragment {
                 @Override
                 public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
                     if (documentSnapshot.exists()) {
-                        Log.d(TAG, "currentData:" + documentSnapshot.toString());
                         User profile = documentSnapshot.toObject(User.class);
                         binding.name.setText(profile.getName());
-                        binding.email.setText("Email: " + profile.getEmail());
-                        binding.phoneNumber.setText("Phone: " + profile.getPhone());
-                        binding.adressProfile.setText("Address: " + profile.getAddress());
-                        Glide.with(getActivity()).load(profile.getProfileImageUrl()).circleCrop().into(binding.profileImage);
-                        Glide.with(getActivity()).load(profile.getProfileCoverUrl()).into(binding.coverImage);
-                        binding.whieght.setText("Weight: " + profile.getmWeight());
-                        binding.height.setText("Height: " + profile.getmHeight());
-                        binding.maxPullups.setText("Max pull ups: " + profile.getMaxPullUps());
-                        binding.maxPushUps.setText("Max push ups: " + profile.getMaxPullUps());
+                        binding.email.setText(R.string.email + ":" + profile.getEmail());
+                        binding.phoneNumber.setText(R.string.phone + ":" + profile.getPhone());
+                        binding.adressProfile.setText(R.string.address + ":" + profile.getAddress());
+                        Glide.with(getContext()).load(profile.getProfileImageUrl()).circleCrop().into(binding.profileImage);
+                        if(profile.getProfileCoverUrl() != null) Glide.with(getContext()).load(profile.getProfileCoverUrl()).into(binding.coverImage);
+
+
+                        binding.whieght.setText(R.string.weight + ":" + profile.getmWeight());
+                        binding.height.setText(R.string.dips + ":" + profile.getmHeight());
+                        binding.maxPullups.setText(R.string.pull_ups + ":" + profile.getMaxPullUps());
+                        binding.maxPushUps.setText(R.string.push_ups + ":" + profile.getMaxPullUps());
                     }
-                    binding.version.setText("Version: 1.0.0");
-                    binding.theProgrammer.setText("Developers: ");
-                    binding.termsAndCondition.setText("Terms and condition  >>");
-                    binding.rateTheApp.setText("Rate the app  >>");
                 }
             });
             binding.signoutPtofile.setOnClickListener(new View.OnClickListener() {
@@ -116,7 +124,18 @@ public class ProfileFragment extends Fragment {
             binding.updateProfile.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    startActivity(new Intent(getContext(), SignUpActivity.class));
+                    new AlertDialog.Builder
+                            (getContext()).setTitle("password reset").setMessage("sending password reset message to email... ").setCancelable(true);
+                    mAuth.sendPasswordResetEmail(mAuth.getCurrentUser().getEmail()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if(task.isSuccessful()){
+                                Toast.makeText(getContext(), "يمكنك اكمال العملية على الايمايل الخاص بك", Toast.LENGTH_SHORT).show();
+                            }else {
+                                Toast.makeText(getContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
                 }
             });
             //.inflate(R.layout.pleas_sign_in_or_up, container, false);
@@ -129,12 +148,26 @@ public class ProfileFragment extends Fragment {
     private boolean loadFragment(Fragment fragment) {
 
         if (fragment != null) {
-            FragmentManager fm = getActivity().getSupportFragmentManager();
+            FragmentManager fm = ((AppCompatActivity)getContext()).getSupportFragmentManager();
             fm.beginTransaction().setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
-                    .replace(R.id.container, fragment)
+                    .replace(R.id.container, fragment).addToBackStack( "tag" )
                     .commit();
             return true;
         }
         return false;
+    }
+    public void setLocale(String lang) {
+        Locale myLocale = new Locale(lang);
+        Resources res = getResources();
+        FirebaseFirestore.getInstance()
+                .document("users/" + FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .update("language", lang);
+        DisplayMetrics dm = res.getDisplayMetrics();
+        Configuration conf = res.getConfiguration();
+        conf.locale = myLocale;
+        res.updateConfiguration(conf, dm);
+        Intent refresh = new Intent(getActivity(), MainActivity.class);
+        getActivity().finish();
+        startActivity(refresh);
     }
 }

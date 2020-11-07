@@ -14,7 +14,7 @@ public class User {
     String name;
     String profileImageUrl;
     String profileCoverUrl;
-    String address;
+    String address, language;
     Date birthDate;
     List myEvents = new ArrayList();
     int mHeight;
@@ -24,7 +24,7 @@ public class User {
     public User() {
     }
 
-    public User(String email, String password, String phone, String name, String profileImageUrl, String address, Date birthDate, String qrCodeUrl, int mHeight, int mWeight, int maxPullUps, int maxPushUps, int maxDips, List myEvents ) {
+    public User(String email, String password, String phone, String name, String profileImageUrl, String address, Date birthDate, String qrCodeUrl, int mHeight, int mWeight, int maxPullUps, int maxPushUps, int maxDips, List myEvents, String language ) {
         this.email = email;
         this.password = password;
         this.phone = phone;
@@ -39,6 +39,15 @@ public class User {
         this.mHeight = mHeight;
         this.mWeight = mWeight;
         this.myEvents = myEvents;
+        this.language = language;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
     }
 
     public void setMaxPullUps(int maxPullUps) {

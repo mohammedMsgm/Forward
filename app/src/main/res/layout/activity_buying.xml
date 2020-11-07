@@ -6,11 +6,37 @@
     android:layout_height="match_parent"
     tools:context=".Activity.BuyingActivity"
     android:fillViewport="true">
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:titleTextColor="@color/colorPrimaryDark"
+        app:layout_constraintTop_toTopOf="parent">
+        <!--<com.andremion.counterfab.CounterFab
+            android:id="@+id/counter_fab"
+            android:layout_marginLeft="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            app:badgeBackgroundColor="#FF1100"
+            android:layout_marginBottom="8dp"
+            android:background="@color/colorPrimary"
+            android:src="@drawable/ic_shopping_bag"
+            app:backgroundTint="@color/colorPrimary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />-->
+    </Toolbar>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorPrimaryDark">
+        android:background="@color/colorPrimaryDark"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
 
         <androidx.viewpager.widget.ViewPager
@@ -165,7 +191,7 @@
             android:layout_height="40dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
-            android:background="@drawable/ic_profile_caption"
+            android:background="@drawable/spinner_icon"
             app:layout_constraintEnd_toEndOf="@+id/phoneNumber"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/textView27"
@@ -229,5 +255,7 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+</androidx.constraintlayout.widget.ConstraintLayout>
 
-</ScrollView>
+
+    </ScrollView>

@@ -78,10 +78,12 @@ public class SignInActivity extends AppCompatActivity {
     public void updateUI(){
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+        finish();
     }
     public void openSignUp(View v){
         Intent intent = new Intent(this, SignUpActivity.class);
         startActivity(intent);
+        finish();
     }
 
 }

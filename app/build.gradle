@@ -11,7 +11,7 @@ android {
     defaultConfig {
         applicationId "com.vogella.myapplication"
         minSdkVersion 23
-        targetSdkVersion 28
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0"
 
@@ -60,5 +60,7 @@ dependencies {
     //implementation 'com.journeyapps:zxing-android-embedded:4.1.0'
     //implementation 'androidx.appcompat:appcompat:1.0.2'
     implementation 'com.github.prolificinteractive:material-calendarview:1.6.0'
+    implementation 'com.github.andremion:counterfab:1.2.1'
+
 
 }

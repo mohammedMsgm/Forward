@@ -4,13 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+    android:background="@color/colorPrimaryDark"
     tools:context=".Fragments.SelectingSessionFragment">
 
     <com.prolificinteractive.materialcalendarview.MaterialCalendarView
         android:id="@+id/calendar_view_selecting"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
         android:background="@color/colorPrimaryDark"
         app:layout_constraintTop_toBottomOf="@+id/leftDays"
         app:mcv_arrowColor="@color/colorPrimaryDark"
@@ -31,7 +32,7 @@
         android:shadowDy="2"
         android:shadowRadius="2"
         android:text="TextView"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="@color/colorPrimary"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="@+id/textView28"
         app:layout_constraintStart_toStartOf="parent"
@@ -41,9 +42,9 @@
         android:id="@+id/textView28"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="24dp"
         android:text="@string/select_days_you_want"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="@color/colorPrimary"
 
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -59,7 +60,7 @@
         android:shadowDy="2"
         android:shadowRadius="2"
         android:text="@string/left"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="@color/colorPrimary"
         android:textSize="30sp"
         app:layout_constraintStart_toEndOf="@+id/leftDays"
         app:layout_constraintTop_toTopOf="@+id/leftDays" />
@@ -79,33 +80,18 @@
 
     <Button
         android:id="@+id/slecttingPayButton"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
         android:background="@drawable/ic_button_background"
         android:text="@string/done"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="@+id/slecttingPayButton2"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_weight="1"
-        app:layout_constraintStart_toEndOf="@+id/slecttingPayButton2"
-        app:layout_constraintTop_toTopOf="@+id/slecttingPayButton2" />
-
-    <Button
-        android:id="@+id/slecttingPayButton2"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="16dp"
-        android:background="@drawable/ic_button_background"
-        android:backgroundTint="@color/colorPrimaryDark"
-        android:text="@string/notes"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/slecttingPayButton"
-        app:layout_constraintHorizontal_weight="1"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/progressBar3"
+        app:layout_constraintVertical_bias="1.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

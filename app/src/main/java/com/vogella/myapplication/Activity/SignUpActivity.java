@@ -8,10 +8,13 @@ import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.Toast;
 
@@ -34,12 +37,14 @@ import com.vogella.myapplication.MainActivity;
 import com.vogella.myapplication.Pojo.User;
 import com.vogella.myapplication.databinding.ActivitySignUpBinding;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.UUID;
 
 
-public class SignUpActivity extends AppCompatActivity implements  DatePickerDialog.OnDateSetListener {
+public class SignUpActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
     ActivitySignUpBinding binding;
     private FirebaseAuth mAuth;
     private String TAG = SignUpActivity.class.getName();
@@ -52,11 +57,12 @@ public class SignUpActivity extends AppCompatActivity implements  DatePickerDial
     String downloadUrl;
     Calendar calendar;
     String email,
-     password,
-     name,
-     birthDate,
-    address,
-     phone;
+            password,
+            name,
+            birthDate,
+            address,
+            phone;
+    String lang;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +73,23 @@ public class SignUpActivity extends AppCompatActivity implements  DatePickerDial
         mAuth = FirebaseAuth.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference();
         firestore = FirebaseFirestore.getInstance();
+
+        /*binding.switch2.setChecked(false);
+        lang = "en";
+        binding.switch2.setText("language: english");
+        binding.switch2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b){
+                    lang = "ar";
+                    binding.switch2.setText("language: arabic");
+                }
+                if (!b){
+                    lang = "en";
+                    binding.switch2.setText("language: english");
+                }
+            }
+        });*/
 
 
         //settings listeners:
@@ -87,17 +110,16 @@ public class SignUpActivity extends AppCompatActivity implements  DatePickerDial
                 phone = binding.phoneUp.getText().toString();
                 address = binding.addressUp.getText().toString();
                 boolean value = false;
-                     value = name != null          && !name.equals("") &&
-                            email != null    && !email.equals("") &&
-                            birthDate != null&& !birthDate.equals("") &&
-                            phone != null    && !phone.equals("") &&
-                            password != null && !password.equals("") &&
-                            address != null  && !address.equals("") &&
-                            calendar != null &&
-                            !downloadUrl.isEmpty() && downloadUrl !=null;
-                if(value){
+                value = name != null && !name.equals("") &&
+                        email != null && !email.equals("") &&
+                        birthDate != null && !birthDate.equals("") &&
+                        phone != null && !phone.equals("") &&
+                        password != null && !password.equals("") &&
+                        address != null && !address.equals("") &&
+                        calendar != null && downloadUrl != null;
+                if (value) {
                     signUp(email, password);
-                }else{
+                } else {
                     Toast.makeText(context, "تأكد من بياناتك و  صورتك الشخصية رجاء", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -128,13 +150,17 @@ public class SignUpActivity extends AppCompatActivity implements  DatePickerDial
                                     .setPhotoUri(Uri.parse(downloadUrl))
                                     .build();
                             task.getResult().getUser().updateProfile(profileUpdates);
-                            User user = new User(email, password, phone, name, downloadUrl, address, calendar.getTime(), task.getResult().getUser().getUid(), 000000, 0, 0, 0, 0, new ArrayList());
-                            firestore.collection("users").document( task.getResult().getUser().getUid()).set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            User user = new User(email, password, phone, name
+                                    , downloadUrl, address, calendar.getTime()
+                                    , task.getResult().getUser().getUid()
+                                    , 000000, 0, 0, 0, 0
+                                    , new ArrayList(), "ar");
+                            firestore.collection("users").document(task.getResult().getUser().getUid()).set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
                                     updateUI();
                                     Toast.makeText(context, "تم تسجيل الدخول بنجاح", Toast.LENGTH_SHORT).show();
-                                                                    }
+                                }
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
@@ -153,7 +179,9 @@ public class SignUpActivity extends AppCompatActivity implements  DatePickerDial
     private void updateUI() {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+        finish();
     }
+
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         Calendar c = Calendar.getInstance();
@@ -164,21 +192,22 @@ public class SignUpActivity extends AppCompatActivity implements  DatePickerDial
         binding.birthDateUp.setText(currentDateString);
         calendar = c;
     }
+
     private void chooseImage() {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
-                && data != null && data.getData() != null )
-        {
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
+                && data != null && data.getData() != null) {
             filePath = data.getData();
-            uploadImage();
-            binding.imageView5.setVisibility(View.GONE);
+            uploadImage(UUID.randomUUID().toString());
+
             /*try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
 
@@ -190,15 +219,15 @@ public class SignUpActivity extends AppCompatActivity implements  DatePickerDial
             }*/
         }
     }
-    private void uploadImage() {
 
-        if(filePath != null)
-        {
+    private void uploadImage(String uid) {
+
+        if (filePath != null) {
             final ProgressDialog progressDialog = new ProgressDialog(this);
             progressDialog.setTitle("Uploading...");
             progressDialog.show();
             progressDialog.setCancelable(true);
-            StorageReference ref = storageReference.child("users/"+ mAuth.getCurrentUser());
+            StorageReference ref = storageReference.child("users/" + uid);
             ref.putFile(filePath)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
@@ -210,7 +239,7 @@ public class SignUpActivity extends AppCompatActivity implements  DatePickerDial
                                 public void onComplete(@NonNull Task<Uri> task) {
                                     Uri uri = task.getResult();
                                     downloadUrl = uri.toString();
-                                    Glide.with(context).load(downloadUrl).circleCrop().centerCrop().into(binding.imageView);
+                                    Glide.with(context).load(downloadUrl).circleCrop().into(binding.imageView);
                                 }
                             });
                         }
@@ -219,15 +248,15 @@ public class SignUpActivity extends AppCompatActivity implements  DatePickerDial
                         @Override
                         public void onFailure(@NonNull Exception e) {
                             progressDialog.dismiss();
-                            Toast.makeText(context, "Failed "+e.getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, "Failed " + e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     })
                     .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                            double progress = (100.0*taskSnapshot.getBytesTransferred()/taskSnapshot
+                            double progress = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot
                                     .getTotalByteCount());
-                            progressDialog.setMessage("Uploaded "+(int)progress+"%");
+                            progressDialog.setMessage("Uploaded " + (int) progress + "%");
                         }
                     });
         }

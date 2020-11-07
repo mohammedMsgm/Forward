@@ -10,15 +10,22 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Bundle;
 
 
+import android.util.DisplayMetrics;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.vogella.myapplication.Activity.SignInActivity;
 import com.vogella.myapplication.Activity.SignUpActivity;
 import com.vogella.myapplication.Fragments.CheckFragment;
@@ -29,10 +36,12 @@ import com.vogella.myapplication.Fragments.StoreFragment;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
     private final int SPLASH_DISPLAY_LENGTH = 1000;
+
 
 
     @Override
@@ -56,7 +65,6 @@ public class MainActivity extends AppCompatActivity {
         Date date = new Date();
         date.setTime(date.getTime() + (20 * 1000));
         instance.setTime(date);
-        startAlarm(instance, 1);
         BottomNavigationView btm = findViewById(R.id.bottom_navigation_bar);
 
         btm.setItemIconTintList(null);
@@ -85,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
         if (fragment != null) {
             FragmentManager fm = getSupportFragmentManager();
             fm.beginTransaction().setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
-                    .replace(R.id.container, fragment)
+                    .replace(R.id.container, fragment).addToBackStack( "tag" )
                     .commit();
             return true;
         }
@@ -100,13 +108,5 @@ public class MainActivity extends AppCompatActivity {
     }
     public void openStore(View v){loadFragment(new StoreFragment());}
 
-    void startAlarm(Calendar c, int requestCode) {
-        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(this, AlertReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, requestCode, intent, 0);
-        if (c.before(Calendar.getInstance())) {
-            c.add(Calendar.DATE, 1);
-        }
-        alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
-    }
+
 }

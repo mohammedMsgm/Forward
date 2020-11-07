@@ -13,12 +13,12 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.os.Handler;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -28,6 +28,8 @@ import android.view.ViewGroup;
 import android.widget.NumberPicker;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -40,7 +42,6 @@ import com.vogella.myapplication.CustomDialogBox;
 import com.vogella.myapplication.MainActivity;
 import com.vogella.myapplication.Pojo.MyEventDay;
 import com.vogella.myapplication.R;
-import com.vogella.myapplication.databinding.FragmentHomFragmetBinding;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -57,7 +58,7 @@ public class HomeFragment extends Fragment {
     FirebaseUser currentUser;
     FirebaseFirestore fireStore;
     Date nextSessionDate;
-    FragmentHomFragmetBinding binding;
+    com.vogella.myapplication.databinding.FragmentHomFragmetBinding binding;
     int u;
     ArrayList<Date> dates =new ArrayList<>();
     int weight, maxPullUps, maxPushUps, mawDips;
@@ -87,13 +88,14 @@ public class HomeFragment extends Fragment {
         if (currentUser == null) {
             view = inflater.inflate(R.layout.pleas_sign_in_or_up, container, false);
         } else {
-            binding = FragmentHomFragmetBinding.inflate(inflater, container, false);
+            binding = com.vogella.myapplication.databinding.FragmentHomFragmetBinding.inflate(inflater, container, false);
             view = binding.getRoot();
             ArrayList imageUrls = new ArrayList();
             imageUrls.add(R.drawable.calisthaniks1);
             imageUrls.add(R.drawable.body_building1);
             imageUrls.add(R.drawable.body_building);
-            binding.programHomeViewPAger.setAdapter(new ImageAdapter(getContext(), imageUrls, true));
+            //TODO: view pager for programs:
+           /* binding.programHomeViewPAger.setAdapter(new ImageAdapter(getContext(), imageUrls, true));
 
             // Disable clip to padding
             binding.programHomeViewPAger.setClipToPadding(false);
@@ -102,9 +104,8 @@ public class HomeFragment extends Fragment {
             // sets a margin b/w individual pages to ensure that there is a gap b/w them
             binding.programHomeViewPAger.setPageMargin(16);
             //homeRecyvlerView = view.findViewById(R.id.home_recyclerView);
-            binding.subProgressBar.setIndeterminate(false);
+            binding.subProgressBar.setIndeterminate(false);*/
 
-            //TODO: document
             fireStore.document("users/" + currentUser.getUid()).addSnapshotListener(getActivity(), new EventListener<DocumentSnapshot>() {
                 @Override
                 public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
@@ -130,16 +131,12 @@ public class HomeFragment extends Fragment {
                                     binding.subProgressBar.setMax(dates.size());
                                     binding.subProgressBar.setProgress(u);
                                     binding.subProgressBarText.setText(k + "/" + dates.size());
-                                    binding.attProgressBarText.setText( 2 + "/" + k);
-                                    binding.atteProgressBar.setProgress(2);
-                                    binding.atteProgressBar.setMax(k);
+
                                 }else {
                                     binding.subProgressBar.setMax(dates.size());
                                     binding.subProgressBar.setProgress(k);
                                     binding.subProgressBarText.setText(k + "/" + dates.size());
-                                    binding.attProgressBarText.setText( 2 + "/" + k);
-                                    binding.atteProgressBar.setProgress(2);
-                                    binding.atteProgressBar.setMax(k);
+
 
                                 }
 
@@ -194,7 +191,17 @@ public class HomeFragment extends Fragment {
         binding.submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), "تم حفظ تقدمك!!", Toast.LENGTH_SHORT).show();
+                fireStore.collection("users").document(currentUser.getUid()).update("maxPullUps", binding.maxDipsPicker.getValue()
+                        , "maxPushUps", binding.maxPushupsPicker.getValue()
+                        , "mWeight", binding.weightPicker.getValue()
+                        , "maxDips", binding.maxDipsPicker.getValue()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()){
+                            Toast.makeText(getContext(), "تم حفظ تقدمك", Toast.LENGTH_SHORT).show();
+                        }else Toast.makeText(getContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
         binding.facebookButton.setOnClickListener(new View.OnClickListener() {

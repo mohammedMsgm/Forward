@@ -18,7 +18,6 @@
             android:layout_height="50dp"
             android:layout_marginTop="16dp"
             android:height="40dp"
-            android:autoText="true"
             android:background="@drawable/ic_email_blank"
             android:clickable="true"
             android:ems="10"
@@ -43,7 +42,7 @@
             app:layout_constraintStart_toStartOf="@+id/name_up"
             app:layout_constraintTop_toBottomOf="@+id/name_up" />
 
-        <EditText
+        <TextView
             android:id="@+id/birth_date_up"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -51,9 +50,11 @@
             android:height="40dp"
             android:background="@drawable/ic_email_blank"
             android:ems="10"
+            android:gravity="center_vertical"
             android:hint="@string/birth_date"
-            android:inputType="date"
+            android:textColor="@color/colorPrimary"
             android:padding="10dp"
+            android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.495"
             app:layout_constraintStart_toStartOf="parent"
@@ -68,6 +69,7 @@
             android:background="@drawable/ic_email_blank"
             android:ems="10"
             android:hint="@string/phone"
+            android:gravity="right"
             android:inputType="phone"
             android:padding="10dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -83,7 +85,7 @@
             android:height="40dp"
             android:background="@drawable/ic_email_blank"
             android:ems="10"
-
+            android:gravity="fill_vertical"
             android:hint="@string/email"
             android:inputType="textEmailAddress"
             android:padding="10dp"
@@ -96,7 +98,7 @@
             android:id="@+id/next_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
             android:background="@drawable/ic_button_background"
             android:backgroundTint="@color/colorAccent"
@@ -119,9 +121,13 @@
             android:height="40dp"
             android:background="@drawable/ic_email_blank"
             android:ems="10"
+
+
+            android:gravity="right|center_vertical"
             android:hint="@string/password"
             android:inputType="textPassword"
             android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/phone_up" />
@@ -147,6 +153,17 @@
             app:layout_constraintBottom_toBottomOf="@+id/imageView"
             app:layout_constraintEnd_toEndOf="@+id/imageView"
             app:srcCompat="@drawable/upload_icon" />
+
+        <!--<Switch
+            android:id="@+id/switch2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="34dp"
+            android:text="language : english"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="@+id/password_up"
+            app:layout_constraintStart_toStartOf="@+id/password_up"
+            app:layout_constraintTop_toBottomOf="@+id/password_up" />-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

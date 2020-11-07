@@ -2,6 +2,8 @@ package com.vogella.myapplication.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.app.ProgressDialog;
@@ -12,9 +14,12 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -32,9 +37,11 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.Transaction;
 import com.vogella.myapplication.Adapters.ImageAdapter;
 import com.vogella.myapplication.Adapters.StoreAdapter;
+import com.vogella.myapplication.Fragments.BasketFragment;
 import com.vogella.myapplication.Fragments.HomeFragment;
 import com.vogella.myapplication.Pojo.Item;
 import com.vogella.myapplication.Pojo.Trainer;
+import com.vogella.myapplication.R;
 import com.vogella.myapplication.databinding.ActivityBuyingBinding;
 import com.vogella.myapplication.databinding.FragmentTrainerProfileBinding;
 
@@ -43,30 +50,48 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
-public class BuyingActivity extends AppCompatActivity {
+public class BuyingActivity extends Fragment {
     ActivityBuyingBinding binding;
     ArrayList<String> imageUrls;
     DocumentReference documentReference;
     Context context;
      String TAG = "mohammed msgm";
      Item item;
+     static String documentPath;
 
+    public BuyingActivity() {
+        // Required empty public constructor
+    }
+    public static BuyingActivity newInstance(String ddocumentPath) {
+        documentPath = ddocumentPath;
+        BuyingActivity fragment = new BuyingActivity();
+        Bundle args = new Bundle();
+        fragment.setArguments(args);
+        return fragment;
+    }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //TODO: initialize you sheet
-        imageUrls = new ArrayList<>();
-        Intent intent = getIntent();
+        View v;
         ArrayList arrayList = new ArrayList();
-        context = this;
-        String documentPath = intent.getStringExtra("documentPath");
+        imageUrls = new ArrayList<>();
+        context = getContext();
         documentReference = FirebaseFirestore.getInstance().document(documentPath);
+
         // start working
         if (!documentPath.substring(0, 5).equals("train")) {
             //TODO: for merch and tools
             binding = ActivityBuyingBinding.inflate(getLayoutInflater());
-            setContentView(binding.getRoot());
+            v = binding.getRoot();
+            binding.toolbar.setNavigationIcon(R.drawable.abc_vector_test);
+            binding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    getActivity().onBackPressed();
+                }
+            });
             //addToCart
             documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
                 @Override
@@ -83,6 +108,7 @@ public class BuyingActivity extends AppCompatActivity {
                         binding.viewPager.setPageMargin(20);
 
                         binding.beyName.setText(item.getItemName());
+                        binding.toolbar.setTitle(item.getItemName());
                         binding.beyPrice.setText(item.getPrice() + "DA");
                         binding.wormDotsIndicator.setViewPager(binding.viewPager);
                         binding.BeyCallButton.setOnClickListener(new View.OnClickListener() {
@@ -109,19 +135,33 @@ public class BuyingActivity extends AppCompatActivity {
                         ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, sizes);
                         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         binding.spinner2.setAdapter(adapter1);
-                        binding.spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        /*binding.spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                             @Override
                             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                                Toast.makeText(context,binding.spinner2.getSelectedItem().toString() , Toast.LENGTH_LONG).show();
                             }
 
                             @Override
                             public void onNothingSelected(AdapterView<?> adapterView) {
                             }
-                        });
+                        });*/
                     }
                 }
             });
+            /*FirebaseFirestore.getInstance().collection("users/" + FirebaseAuth.getInstance().getCurrentUser().getUid() + "/events")
+                    .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                        @Override
+                        public void onEvent(@javax.annotation.Nullable QuerySnapshot queryDocumentSnapshots, @javax.annotation.Nullable FirebaseFirestoreException e) {
+                            if (!queryDocumentSnapshots.isEmpty() || e != null) {
+                                int count = 0;
+                                for (DocumentSnapshot document : queryDocumentSnapshots.getDocuments()) {
+                                    count++;
+                                }
+                                binding.counterFab.setCount(count);
+                            } else {
+                                binding.counterFab.setCount(0);
+                            }
+                        }
+                    });*/
             //Add to cart:
             binding.addToCart.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -133,8 +173,9 @@ public class BuyingActivity extends AppCompatActivity {
                         progressDialog.setMessage("إضافة المنتج للسلة...");
                         progressDialog.setTitle("سلة المشتريات");
                         progressDialog.show();
+                        item.setTotalPrice(item.getPrice()*item.getAmount());
                         item.setSelectedSize(binding.spinner2.getSelectedItemPosition());
-                        progressDialog.setCancelable(false);
+                        progressDialog.setCancelable(true);
                         FirebaseFirestore.getInstance().document("users/" + currentUser.getUid())
                                 .collection("events").document(documentReference.getId()).set(item).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
@@ -187,6 +228,7 @@ public class BuyingActivity extends AppCompatActivity {
                     binding.recyclerViewBey.setAdapter(new StoreAdapter(arrayList));
                 }
             });
+            return v;
         }
 
 
@@ -200,7 +242,7 @@ public class BuyingActivity extends AppCompatActivity {
 
         else {
             FragmentTrainerProfileBinding binding = FragmentTrainerProfileBinding.inflate(getLayoutInflater());
-            setContentView(binding.getRoot());
+            v = binding.getRoot();
             documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
                 @Override
                 public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
@@ -244,17 +286,6 @@ public class BuyingActivity extends AppCompatActivity {
                         binding.imageButton.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                ProgressDialog progressDialog = new ProgressDialog(context);
-                                progressDialog.setMessage("التحقق من حسابك...");
-                                progressDialog.setTitle("إنشاء تقييم للمدرب");
-                                progressDialog.setCancelable(true);
-                                progressDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-                                    @Override
-                                    public void onCancel(DialogInterface dialogInterface) {
-                                        Toast.makeText(context, "يجب عليك الإشتراك في النادي أولا!!", Toast.LENGTH_SHORT).show();
-                                    }
-                                });
-                                progressDialog.show();
 
                             }
                         });
@@ -262,6 +293,7 @@ public class BuyingActivity extends AppCompatActivity {
                     }
                 }
             });
+            return v;
         }
 
 

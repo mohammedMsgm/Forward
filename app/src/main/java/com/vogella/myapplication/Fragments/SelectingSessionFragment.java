@@ -18,6 +18,7 @@ import com.google.android.gms.tasks.OnCanceledListener;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -74,6 +75,7 @@ public class SelectingSessionFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
     }
 
     @Override
@@ -84,7 +86,7 @@ public class SelectingSessionFragment extends Fragment {
         View v = binding.getRoot();
         //TODO: initialize your shite:
         document = FirebaseFirestore.getInstance().document("work/" + "keys");
-        uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
         reference = FirebaseFirestore.getInstance().collection("users").document(uid);
         Toast toast = Toast.makeText(getContext(), "لقد قمت سابقا باختيار جميع الايام", Toast.LENGTH_SHORT);
         Calendar ViewCalendar = Calendar.getInstance();
@@ -111,7 +113,7 @@ public class SelectingSessionFragment extends Fragment {
 
             }
         });
-        reference.addSnapshotListener(getActivity(), new EventListener<DocumentSnapshot>() {
+        reference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
                 if (e == null && documentSnapshot.exists()) {
@@ -119,7 +121,7 @@ public class SelectingSessionFragment extends Fragment {
                     if (arrayList != null && arrayList.size() != 0) {
 
                         for (int i = 0; i < arrayList.size(); i++) {
-                            binding.calendarViewSelecting.setDateSelected((Date) arrayList.get(i).get("date"), true);
+                            binding.calendarViewSelecting.setDateSelected(((Timestamp) arrayList.get(i).get("date")).toDate(), true);
                             mBoughtDays += 1;
                         }
                     }
@@ -152,33 +154,30 @@ public class SelectingSessionFragment extends Fragment {
         boolean b = binding.calendarViewSelecting.getSelectedDates().size() == mBoughtDays;
         if (b) {
             binding.progressBar3.setVisibility(View.VISIBLE);
+
             FirebaseFirestore.getInstance().runTransaction(new Transaction.Function<Void>() {
                 @androidx.annotation.Nullable
                 @Override
                 public Void apply(@NonNull Transaction transaction) throws FirebaseFirestoreException {
-                    ArrayList arrayList = (ArrayList<String>) transaction.get(document).get("keys");
+                   /* ArrayList arrayList = (ArrayList<String>) transaction.get(document).get("names");
                     boolean isTrue = false;
                     for (int i = 0; i < arrayList.size(); i++) {
                         if (arrayList.get(i).equals(mKey)) {
                             isTrue = true;
                         }
                     }
-                    if (isTrue) {
-                        List<CalendarDay> calendarDays = binding.calendarViewSelecting.getSelectedDates();
-                        transaction.update(reference, "myEvents", new ArrayList());
-                        for (int j = 0; j < binding.calendarViewSelecting.getSelectedDates().size(); j++) {
-                            Map<String, Object> map = new HashMap<>();
-                            map.put("date", calendarDays.get(j).getCalendar().getTime());
-                            map.put("note", mNote);
-                            map.put("type", mType);
-                            //list.add(map);
-                            transaction.update(reference, "myEvents", FieldValue.arrayUnion(map));
-                        }
-                        transaction.update(document, "names", FieldValue.arrayRemove(mKey));
-
-                    }else{
-
+                    if (isTrue) {*/
+                    List<CalendarDay> calendarDays = binding.calendarViewSelecting.getSelectedDates();
+                    transaction.update(reference, "myEvents", new ArrayList());
+                    for (int j = 0; j < binding.calendarViewSelecting.getSelectedDates().size(); j++) {
+                        Map<String, Object> map = new HashMap<>();
+                        map.put("date", calendarDays.get(j).getCalendar().getTime());
+                        map.put("note", mNote);
+                        map.put("type", mType);
+                        //list.add(map);
+                        transaction.update(reference, "myEvents", FieldValue.arrayUnion(map));
                     }
+                    // transaction.update(document, "names", FieldValue.arrayRemove(mKey));
                        /* if (isWrong) {
                             Toast.makeText(getActivity(), "رمز تعبئة خاطئ", Toast.LENGTH_SHORT).show();
                         }*/
@@ -191,7 +190,7 @@ public class SelectingSessionFragment extends Fragment {
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
                         Toast.makeText(getContext(), "تم تعبئة الحصص", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(getActivity(), MainActivity.class).putExtra("loadedFragment", "CheckFragment"));
+                        //startActivity(new Intent(getActivity(), MainActivity.class).putExtra("loadedFragment", "CheckFragment"));
                         getActivity().finish();
                     } else {
                         Log.e("mohammedtransitiion", task.getException().getMessage());
@@ -210,7 +209,5 @@ public class SelectingSessionFragment extends Fragment {
         } else {
             Toast.makeText(getActivity(), "قم بتحديد باقي الايام للتقدم", Toast.LENGTH_SHORT).show();
             binding.slecttingPayButton.setEnabled(true);
-        }
-
-    }
+        }}
 }

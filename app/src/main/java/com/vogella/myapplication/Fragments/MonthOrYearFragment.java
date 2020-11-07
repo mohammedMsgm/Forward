@@ -74,7 +74,7 @@ public class MonthOrYearFragment extends Fragment {
         if (fragment != null) {
             FragmentManager fm = getActivity().getSupportFragmentManager();
             fm.beginTransaction().setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
-                    .replace(R.id.containerPayCharge, fragment)
+                    .replace(R.id.containerPayCharge, fragment).addToBackStack( "tag" )
                     .commit();
             return true;
         }

@@ -10,6 +10,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -58,11 +61,8 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.ItemViewHold
             holder.ratingBar.setRating(5);
         }else {
             holder.itemName.setText(mData.get(position).getItemName());
-            holder.itemPrice.setText(mData.get(position).getPrice() + "");
-
+            holder.itemPrice.setText(mData.get(position).getPrice() + " DA");
             Glide.with(holder.itemView.getContext()).load(mData.get(position).getImageUrl()).optionalCenterCrop().into(holder.itemImage);
-
-
         }
     }
 
@@ -99,7 +99,6 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.ItemViewHold
             }
             itemView.setOnClickListener(this);
         }
-
         @Override
         public void onClick(View view) {
             Toast.makeText(view.getContext(), "clicked item", LENGTH_LONG).show();
@@ -107,28 +106,35 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.ItemViewHold
             if(isTrainer){
                 String documentPath = tData.get(getAdapterPosition()).getDocumentPath();
 
-                intent.putExtra("documentPath", documentPath);
+                loadFragment(BuyingActivity.newInstance(documentPath));
             }else {
                 String documentPath = mData.get(getAdapterPosition()).getDocumentPath();
-              intent.putExtra("documentPath", documentPath);
+                loadFragment(BuyingActivity.newInstance(documentPath));
             }
-            view.getContext().startActivity(intent);
             if (mClickListener != null){
                 mClickListener.onItemClick(view, getAdapterPosition());
             }
         }
-    }
+        private boolean loadFragment(Fragment fragment) {
 
+            if (fragment != null) {
+                FragmentManager fm = ((AppCompatActivity)itemView.getContext()).getSupportFragmentManager();
+                fm.beginTransaction().setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
+                        .replace(R.id.container, fragment).addToBackStack( "tag" )
+                        .commit();
+                return true;
+            }
+            return false;
+        }
+    }
     // convenience method for getting data at click position
     Item getItem(int id) {
         return mData.get(id);
     }
-
     // allows clicks events to be caught
     void setClickListener(ItemClickListener itemClickListener) {
         this.mClickListener = itemClickListener;
     }
-
     // parent activity will implement this method to respond to click events
     public interface ItemClickListener {
         void onItemClick(View view, int position);

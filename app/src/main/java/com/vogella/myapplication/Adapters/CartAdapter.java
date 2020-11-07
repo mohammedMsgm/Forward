@@ -1,6 +1,8 @@
 package com.vogella.myapplication.Adapters;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,9 +14,14 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.vogella.myapplication.MainActivity;
 import com.vogella.myapplication.Pojo.Item;
 import com.vogella.myapplication.R;
@@ -56,11 +63,16 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
                     holder.amountText.setText("" + item.getAmount());
                     item.setTotalPrice(item.getPrice() * item.getAmount());
                     holder.totalPrice.setText("Total: " + item.getTotalPrice() + " DA");
+                    FirebaseFirestore.getInstance().collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getUid()).collection("events")
+                            .document(item.getDocumentPath().split("/")[1]).set(item);
+
+
 
                 }
 
             }
         });
+
 
         holder.plusButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,9 +82,41 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
                     holder.amountText.setText("" +item.getAmount());
                     item.setTotalPrice(item.getPrice() * item.getAmount());
                     holder.totalPrice.setText("Total: " + item.getTotalPrice() + " DA");
+                    FirebaseFirestore.getInstance().collection("users").document(FirebaseAuth.getInstance().getCurrentUser().getUid()).collection("events")
+                            .document(item.getDocumentPath().split("/")[1]).set(item);
+
 
                 }
 
+            }
+        });
+        holder.trash.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new AlertDialog.Builder
+                        (context)
+                        .setTitle("Delete")
+                        .setMessage("Do you really want to delete that item?").setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        String[] parts = item.getDocumentPath().split("/");
+                        FirebaseFirestore.getInstance()
+                                .collection("users/" + FirebaseAuth.getInstance().getCurrentUser().getUid() + "/events")
+                                .document(parts[1]).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Toast.makeText(context, "deleting worked", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.cancel();
+                    }
+                })
+
+                        .show();
             }
         });
         holder.amountText.setText(item.getAmount() + "");
@@ -102,9 +146,11 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         Button plusButton, minusButton;
         ImageView imageView;
         Spinner spinner;
+        Button trash;
 
         ViewHolder(View itemView) {
             super(itemView);
+            trash = itemView.findViewById(R.id.trash);
             nameText = itemView.findViewById(R.id.nameText);
             amountText = itemView.findViewById(R.id.amountText);
             plusButton = itemView.findViewById(R.id.buttonPlus);

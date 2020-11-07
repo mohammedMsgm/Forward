@@ -36,7 +36,7 @@ public class CustomDialogBox extends DialogFragment {
         View v = binding.getRoot();
         // Do all the stuff to initialize your custom view
         binding.sessionsNumber.setText(sessionNumber + " حصص");
-        binding.attendanceNumber.setText("لقد حضرت " + attendanceNumber + " حصص في الوقت المناسب لهذا الشهر");
+        /*binding.attendanceNumber.setText("لقد حضرت " + attendanceNumber + " حصص في الوقت المناسب لهذا الشهر");*/
         binding.buySeesionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

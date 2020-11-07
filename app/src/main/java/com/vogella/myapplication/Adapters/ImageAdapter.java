@@ -50,7 +50,7 @@ public class ImageAdapter extends PagerAdapter {
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
         ImageView imageView = new ImageView(context);
         Object o = imageUrls.get(position);
-        imageView.setOnClickListener(new View.OnClickListener() {
+       /* imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ProgressDialog progressDialog= new ProgressDialog(imageView.getContext());
@@ -73,7 +73,7 @@ public class ImageAdapter extends PagerAdapter {
 
                 progressDialog.show();
             }
-        });
+        });*/
         if(isResource){
             imageView.setImageResource((Integer) o);
         }else {
