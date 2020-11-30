@@ -22,7 +22,7 @@
     <string name="desciption">تفاصيل</string>
     <string name="amount">الكمية</string>
     <string name="Seggested_items_for_you">"منتجات قد تعجبك: "</string>
-    <string name="example_text">"هذا النص البسيط عبارة عن مثال مبسط يقم بتمثيل الى اي درجة من النصوص قد تحتاج للعمل عليه كل رة عود لنفس النقطة مرار و تكرار  بضعف السرعة التي قد بدات  بها و الجميل في الامر انك قد تعجبك الفكرة اصلا تماما تماما  هذا النص البسيط عبارة عن مثال مبسط يقم بتمثيل الى اي درجة من النصوص قد تحتاج للعمل عليه كل رة عود لنفس النقطة مرار و تكرار  بضعف السرعة التي قد بدات  بها و الجميل في الامر انك قد تعجبك الفكرة اصلا تماما تماما "</string>
+    <string name="example_text">"الحصة القادمة خاصة بتدريبات الصدر  "</string>
     <string name="body_building">"كمال أجسام "</string>
     <string name="weight_losing">خسارة الوزن</string>
     <string name="cardio">كارديو</string>
@@ -62,12 +62,11 @@
     <string name="call_me">اتصل بي</string>
     <string name="store">المتجر</string>
     <string name="you_did_not_sign_in_yet">عضو جديد؟ يمكنك التسجيل عبر الزر في الأسفل. او تسجيل الدخول اسفله. كما يمكنك زيارة المتجر دون الحاجة لكليهما.</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="sign_out">تسجيل الخروج</string>
     <string name="reset_password">reset Password</string>
     <string name="empty_layout">لا يوجد اي شيئ هنا ☺</string>
-    <string name="dips">Dips</string>
+    <string name="dips">ديبس</string>
     <string name="pull_ups">عقلة</string>
     <string name="push_ups">ضغط</string>
     <string name="devs">المطورون</string>

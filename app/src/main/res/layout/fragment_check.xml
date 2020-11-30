@@ -11,8 +11,9 @@
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:id="@+id/emtyLayout"
         android:background="@color/colorPrimary"
-        android:visibility="gone">
+        >
 
         <ImageView
             android:id="@+id/imageView8"

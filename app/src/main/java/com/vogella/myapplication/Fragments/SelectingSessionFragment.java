@@ -177,12 +177,7 @@ public class SelectingSessionFragment extends Fragment {
                         //list.add(map);
                         transaction.update(reference, "myEvents", FieldValue.arrayUnion(map));
                     }
-                    // transaction.update(document, "names", FieldValue.arrayRemove(mKey));
-                       /* if (isWrong) {
-                            Toast.makeText(getActivity(), "رمز تعبئة خاطئ", Toast.LENGTH_SHORT).show();
-                        }*/
-
-
+                     transaction.update(document, "names", FieldValue.arrayRemove(mKey));
                     return null;
                 }
             }).addOnCompleteListener(new OnCompleteListener<Void>() {

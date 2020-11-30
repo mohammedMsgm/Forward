@@ -20,34 +20,7 @@ public class ChargeActivity extends AppCompatActivity {
         Context context =this;
         binding = ActivityChargeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        binding.bodyBuildingchage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(context, PayChargeActivity.class).putExtra("type", "bodyBuilding"));
-            }
-        });
-        binding.calisthenicsCharge.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(context, "ليس متوفرا بعد", Toast.LENGTH_SHORT).show();
-            }
-                //startActivity(new Intent(context, PayChargeActivity.class).putExtra("type", "cardio"));            }
-        });
-        binding.cardioCharge.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(context, "ليس متوفرا بعد", Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(context, PayChargeActivity.class).putExtra("type", "bodyBuilding"));
 
-            }
-             //   startActivity(new Intent(context, PayChargeActivity.class).putExtra("type", "calisthenics"));            }
-        });
-        binding.losingWeightCharge.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(context, "ليس متوفرا بعد", Toast.LENGTH_SHORT).show();
-
-            }
-              //  startActivity(new Intent(context, PayChargeActivity.class).putExtra("type", "losingWeight"));            }
-        });
     }
 }

@@ -63,6 +63,7 @@ public class CheckFragment extends Fragment {
         } else {
             view = inflater.inflate(R.layout.fragment_check, container, false);
         }
+        emptyLayout = view.findViewById(R.id.emtyLayout);
         return view;
     }
 

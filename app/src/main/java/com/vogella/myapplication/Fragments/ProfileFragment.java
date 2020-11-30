@@ -100,17 +100,17 @@ public class ProfileFragment extends Fragment {
                     if (documentSnapshot.exists()) {
                         User profile = documentSnapshot.toObject(User.class);
                         binding.name.setText(profile.getName());
-                        binding.email.setText(R.string.email + ":" + profile.getEmail());
-                        binding.phoneNumber.setText(R.string.phone + ":" + profile.getPhone());
-                        binding.adressProfile.setText(R.string.address + ":" + profile.getAddress());
+                        binding.email.setText(getResources().getText(R.string.email) + ":" + profile.getEmail());
+                        binding.phoneNumber.setText(getResources().getText(R.string.phone) + ":" + profile.getPhone());
+                        binding.adressProfile.setText(getResources().getText(R.string.address) + ":" + profile.getAddress());
                         Glide.with(getContext()).load(profile.getProfileImageUrl()).circleCrop().into(binding.profileImage);
                         if(profile.getProfileCoverUrl() != null) Glide.with(getContext()).load(profile.getProfileCoverUrl()).into(binding.coverImage);
 
 
-                        binding.whieght.setText(R.string.weight + ":" + profile.getmWeight());
-                        binding.height.setText(R.string.dips + ":" + profile.getmHeight());
-                        binding.maxPullups.setText(R.string.pull_ups + ":" + profile.getMaxPullUps());
-                        binding.maxPushUps.setText(R.string.push_ups + ":" + profile.getMaxPullUps());
+                        binding.whieght.setText(getResources().getText(R.string.weight) + ":" + profile.getmWeight());
+                        binding.height.setText(getResources().getText(R.string.dips) + ":" + profile.getmHeight());
+                        binding.maxPullups.setText(getResources().getText(R.string.pull_ups) + ":" + profile.getMaxPullUps());
+                        binding.maxPushUps.setText(getResources().getText(R.string.push_ups) + ":" + profile.getMaxPullUps());
                     }
                 }
             });

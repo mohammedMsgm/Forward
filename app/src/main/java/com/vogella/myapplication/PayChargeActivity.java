@@ -21,7 +21,7 @@ public class PayChargeActivity extends AppCompatActivity {
         if (fragment != null) {
             FragmentManager fm = getSupportFragmentManager();
             fm.beginTransaction().setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
-                    .replace(R.id.containerPayCharge, fragment)
+                    .replace(R.id.containerPayCharge, fragment).addToBackStack("tag")
                     .commit();
             return true;
         }
