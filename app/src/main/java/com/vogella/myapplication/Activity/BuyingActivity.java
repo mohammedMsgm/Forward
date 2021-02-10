@@ -172,8 +172,11 @@ public class BuyingActivity extends Fragment {
                         progressDialog.setMessage("إضافة المنتج للسلة...");
                         progressDialog.setTitle("سلة المشتريات");
                         progressDialog.show();
-                        item.setTotalPrice(item.getPrice()*item.getAmount());
-                        item.setSelectedSize(binding.spinner2.getSelectedItemPosition());
+                        item.setTotalPrice(item.getPrice()*item.getAmount());try{
+                            item.setSelectedSize(binding.spinner2.getSelectedItemPosition());
+                        }catch (Exception e){
+                            Toast.makeText(context, "no options", Toast.LENGTH_SHORT).show();
+                        }
                         progressDialog.setCancelable(true);
                         FirebaseFirestore.getInstance().document("users/" + currentUser.getUid())
                                 .collection("events").document(documentReference.getId()).set(item).addOnCompleteListener(new OnCompleteListener<Void>() {

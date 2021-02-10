@@ -121,7 +121,7 @@ public class SelectingSessionFragment extends Fragment {
                     if (arrayList != null && arrayList.size() != 0) {
 
                         for (int i = 0; i < arrayList.size(); i++) {
-                            binding.calendarViewSelecting.setDateSelected(((Timestamp) arrayList.get(i).get("date")).toDate(), true);
+                            binding.calendarViewSelecting.setDateSelected((Date) arrayList.get(i).get("date"), true);
                             mBoughtDays += 1;
                         }
                     }
@@ -187,6 +187,7 @@ public class SelectingSessionFragment extends Fragment {
                         Toast.makeText(getContext(), "تم تعبئة الحصص", Toast.LENGTH_SHORT).show();
                         //startActivity(new Intent(getActivity(), MainActivity.class).putExtra("loadedFragment", "CheckFragment"));
                         getActivity().finish();
+                        startActivity(new Intent(getActivity(), MainActivity.class));
                     } else {
                         Log.e("mohammedtransitiion", task.getException().getMessage());
                         Toast.makeText(getActivity(), "فشل الشحن يرجى التأكد من الشبكة", Toast.LENGTH_SHORT).show();

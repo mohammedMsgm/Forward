@@ -158,6 +158,7 @@ public class SignUpActivity extends AppCompatActivity implements DatePickerDialo
     }
 
     private void updateUI() {
+
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finish();

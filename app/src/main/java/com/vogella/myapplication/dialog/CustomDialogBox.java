@@ -41,7 +41,7 @@ import java.util.List;
 import java.util.Map;
 
 public class CustomDialogBox extends DialogFragment {
-    DialogfragmentBinding binding;
+   /* DialogfragmentBinding binding;
     User user;
     FirebaseFirestore db;
     ListenerRegistration registration;
@@ -206,6 +206,6 @@ public class CustomDialogBox extends DialogFragment {
             return true;
         }
         return false;
-    }
+    }*/
 
 }
