@@ -12,4 +12,8 @@ a platform that helps addicts to recover by encouraging them to find a sport tha
 ## Open market & Inclusiveness:  
 the platform is designed to provide an ecosystem for both users and (services/products) providers that handle every bit of their work, with the opportunity for new sports and startups, which allows it to spread widely.
 ## Good influence & Addiction treatment:
-Although the platform is not aimed at addicts only, it provides special recovery methods for them. With healthy and passionate companions and professional coaches, the platform will change the user's mindset and make him a better person.
+Although the platform is not aimed at addicts only, it provides special recovery methods for them. With healthy and passionate companions and professional coaches, the platform will change the user's mindset and make him a better person.  
+## Supportive community: 
+It doesn't depend only on perfectional trainers but you can meet individuals who have the same interests and goals, then scheduling sessions according to our self-(recovery/training) programs to train together and help each other especially when it comes to getting rid of addictions.
+
+
