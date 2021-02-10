@@ -1,13 +1,6 @@
-package com.vogella.myapplication.Activity;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
+package com.vogella.myapplication.dialog;
 
 import android.app.ProgressDialog;
-import android.content.ClipData;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -17,28 +10,22 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+
 import com.bumptech.glide.Glide;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
-import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.firestore.Transaction;
 import com.vogella.myapplication.Adapters.ImageAdapter;
 import com.vogella.myapplication.Adapters.StoreAdapter;
-import com.vogella.myapplication.Fragments.BasketFragment;
-import com.vogella.myapplication.Fragments.HomeFragment;
 import com.vogella.myapplication.Pojo.Item;
 import com.vogella.myapplication.Pojo.Trainer;
 import com.vogella.myapplication.R;
@@ -49,14 +36,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Nullable;
+
 public class BuyingActivity extends Fragment {
     ActivityBuyingBinding binding;
     ArrayList<String> imageUrls;
     DocumentReference documentReference;
     Context context;
-     String TAG = "mohammed msgm";
-     Item item;
-     static String documentPath;
+    String TAG = "mohammed msgm";
+    Item item;
+    static String documentPath;
 
     public BuyingActivity() {
         // Required empty public constructor
@@ -146,6 +134,12 @@ public class BuyingActivity extends Fragment {
                     }
                 }
             });
+            binding.addToCart.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Toast.makeText(context, "only for clients", Toast.LENGTH_SHORT).show();
+                }
+            });
             /*FirebaseFirestore.getInstance().collection("users/" + FirebaseAuth.getInstance().getCurrentUser().getUid() + "/events")
                     .addSnapshotListener(new EventListener<QuerySnapshot>() {
                         @Override
@@ -162,7 +156,7 @@ public class BuyingActivity extends Fragment {
                         }
                     });*/
             //Add to cart:
-            binding.addToCart.setOnClickListener(new View.OnClickListener() {
+            /*binding.addToCart.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -193,7 +187,7 @@ public class BuyingActivity extends Fragment {
                         Toast.makeText(context, "يرجى تسجيل الدخول أولا", Toast.LENGTH_SHORT).show();
                     }
                 }
-            });
+            });*/
             //spinner:
 
             //amount buttons:
@@ -213,7 +207,7 @@ public class BuyingActivity extends Fragment {
                     if (item.getAmount() < 10){
                         item.setAmount(item.getAmount() + 1);
                         binding.amountText.setText(item.getAmount() + "");
-                                            }
+                    }
                 }
             });
 
@@ -224,6 +218,7 @@ public class BuyingActivity extends Fragment {
                     arrayList.clear();
                     arrayList.addAll(queryDocumentSnapshots.toObjects(Item.class));
                     binding.recyclerViewBey.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
+
                     binding.recyclerViewBey.setAdapter(new StoreAdapter(arrayList));
                 }
             });
@@ -276,15 +271,21 @@ public class BuyingActivity extends Fragment {
                                 startActivity(intent);
                             }
                         });
-                        binding.instegramAccount.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                startActivity(HomeFragment.newInstagramProfileIntent(context.getPackageManager(), trainer.getInstegramAccount()));
-                            }
-                        });
+
                         binding.imageButton.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
+                                ProgressDialog progressDialog = new ProgressDialog(context);
+                                progressDialog.setMessage("التحقق من حسابك...");
+                                progressDialog.setTitle("إنشاء تقييم للمدرب");
+                                progressDialog.setCancelable(true);
+                                progressDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                                    @Override
+                                    public void onCancel(DialogInterface dialogInterface) {
+                                        Toast.makeText(context, "يجب عليك الإشتراك في النادي أولا!!", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                                progressDialog.show();
 
                             }
                         });

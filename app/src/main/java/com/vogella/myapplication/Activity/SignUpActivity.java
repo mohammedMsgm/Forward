@@ -73,25 +73,6 @@ public class SignUpActivity extends AppCompatActivity implements DatePickerDialo
         mAuth = FirebaseAuth.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference();
         firestore = FirebaseFirestore.getInstance();
-
-        /*binding.switch2.setChecked(false);
-        lang = "en";
-        binding.switch2.setText("language: english");
-        binding.switch2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b){
-                    lang = "ar";
-                    binding.switch2.setText("language: arabic");
-                }
-                if (!b){
-                    lang = "en";
-                    binding.switch2.setText("language: english");
-                }
-            }
-        });*/
-
-
         //settings listeners:
         binding.birthDateUp.setOnClickListener(new View.OnClickListener() {
             @Override
