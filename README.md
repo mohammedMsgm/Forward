@@ -2,7 +2,10 @@
 Non-communicable diseases (like cancer, diabetes) cause 70% of the deaths globally, and most of them are caused by long-term addictions and obesity that can be gotten rid of, by sports and an active lifestyle.  
 # Solution:  
 a platform that helps addicts to recover by encouraging them to find a sport that suits their abilities and personalities then help them organize and monitor their progress by their coaches based on data provided by the platform.  
-# Services:  
+# Services:
+## link for apk:
+![alt text](https://github.com/mohammedMsgm/ttwr2021/blob/master/Untitled.png?raw=true)
+- https://github.com/mohammedMsgm/ttwr2021/blob/master/app/release/app-release.apk
 ## For users:  
 - a platform that allows exploring the sports available in the region with each club's reviews.  
 - a healthy and collaborative community that keeps the user's passion and encourages him to continue his progress.  
