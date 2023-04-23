@@ -1,7 +1,11 @@
-# The challenge:  
-Non-communicable diseases (like cancer, diabetes) cause 70% of the deaths globally, and most of them are caused by long-term addictions and obesity that can be gotten rid of, by sports and an active lifestyle.  
-# Solution:  
-a platform that helps addicts to recover by encouraging them to find a sport that suits their abilities and personalities then help them organize and monitor their progress by their coaches based on data provided by the platform.  
+# Forward - The All-in-One Fitness Platform
+Forward is a comprehensive fitness platform designed to enhance the fitness experience for gym-goers, gym owners, and fitness enthusiasts. It includes a fitness marketplace where users can purchase merchandise, supplements, equipment, and fitness programs, all in one place.
+
+For gym owners, Forward offers a powerful gym management system that streamlines daily operations and provides detailed information about customers. It helps gym owners manage customer data, schedule sessions, and sell their products efficiently.
+
+For gym-goers, Forward offers a personalized app that provides access to all the tools and information they need for their fitness journey. It includes features such as progress tracking, workout plans, gym and coach recommendations, and access to the fitness marketplace. Users can customize their experience and track their progress using the app.
+
+Forward's all-in-one approach is designed to simplify and streamline the fitness experience for everyone involved. It's like Uber for gyms, but on steroids :). By offering a comprehensive solution for fitness enthusiasts and gym owners alike, Forward aims to make a meaningful impact on the fitness industry and promote a healthier lifestyle for everyone.  
 # Services:
 ## link for apk:
 ![alt text](https://github.com/mohammedMsgm/ttwr2021/blob/master/Untitled.png?raw=true)
