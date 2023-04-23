@@ -6,9 +6,11 @@ For gym owners, Forward offers a powerful gym management system that streamlines
 For gym-goers, Forward offers a personalized app that provides access to all the tools and information they need for their fitness journey. It includes features such as progress tracking, workout plans, gym and coach recommendations, and access to the fitness marketplace. Users can customize their experience and track their progress using the app.
 
 Forward's all-in-one approach is designed to simplify and streamline the fitness experience for everyone involved. It's like Uber for gyms, but on steroids :). By offering a comprehensive solution for fitness enthusiasts and gym owners alike, Forward aims to make a meaningful impact on the fitness industry and promote a healthier lifestyle for everyone.  
-# Services:
----
 
+## link for apk:
+![alt text](https://github.com/mohammedMsgm/ttwr2021/blob/master/Untitled.png?raw=true)
+- https://github.com/mohammedMsgm/ttwr2021/blob/master/app/release/app-release.apk
+# Services:
 ## Forward Fitness Platform
 
 Forward is a comprehensive fitness platform designed to enhance the fitness experience for gym-goers, gym owners, and fitness enthusiasts. It includes a fitness marketplace where users can purchase merchandise, supplements, equipment, and fitness programs, all in one place.
