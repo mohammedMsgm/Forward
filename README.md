@@ -27,6 +27,7 @@ Forward is a comprehensive fitness platform designed to enhance the fitness expe
 
 ### Features for Gym Owners
 
+
 - Gym Management System: For gym owners, Forward offers a powerful gym management system that streamlines daily operations and provides detailed information about customers. It helps gym owners manage customer data, schedule sessions, and sell their products efficiently.
 
 ### General Features
